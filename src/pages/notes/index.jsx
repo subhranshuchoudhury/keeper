@@ -5,6 +5,10 @@ const Index = () => {
   const [NOTES, setNOTES] = useState("");
   const router = useRouter();
   const fetchNotes = () => {
+    if (!JSON.parse(localStorage.getItem("AUTH_DATA"))?.accessToken) {
+      router.replace("/auth/login");
+      return;
+    }
     const OfflineData = localStorage.getItem("NOTES_DATA");
     if (OfflineData) {
       setNOTES(JSON.parse(OfflineData));
@@ -13,7 +17,7 @@ const Index = () => {
       method: "GET",
       headers: {
         "x-access-token":
-          JSON.parse(localStorage.getItem("AUTH_DATA")).accessToken || "",
+          JSON.parse(localStorage.getItem("AUTH_DATA"))?.accessToken || "",
       },
     };
 
@@ -44,16 +48,29 @@ const Index = () => {
       <div className="flex justify-center flex-wrap">
         {NOTES ? (
           NOTES.map((item, index) => {
+            const time = new Date(item?.timestamp)?.toLocaleTimeString();
+            const date = new Date(item?.timestamp)?.toLocaleDateString();
             return (
-              <div
-                onClick={() => {
-                  router.push(`/notes/${item._id}`);
-                }}
-                key={index}
-                className="bg-white inline-block p-3 m-5 rounded w-[200px] h-[250px] hover:bg-green-400 hover:cursor-pointer hover:text-white"
-              >
-                <p className="font-bold">{item?.title}</p>
-                <p>{item.content}</p>
+              <div>
+                <button className="group relative p-3 block m-5 rounded w-[200px] h-[250px] hover:cursor-pointer bg-[#102979]">
+                  <span
+                    onClick={() => {
+                      router.push(`/notes/${item?._id}`);
+                    }}
+                    key={index}
+                    className="transition ease-in-out delay-75 bg-blue-500 hover:-translate-y-1 duration-200 text-white absolute w-full h-full top-0 left-0 flex justify-center flex-col items-center group-hover:top-5 group-hover:-left-5 rounded-lg"
+                  >
+                    <span className="block font-bold">{item?.title}</span>
+                    <span className="block">
+                      {item.content?.slice(0, 50)}...
+                    </span>
+
+                    <div className="absolute text-xs bottom-5 flex justify-between text-[#e5e5e5] w-[180px] uppercase">
+                      <span>{time}</span>
+                      <span>{date}</span>
+                    </div>
+                  </span>
+                </button>
               </div>
             );
           })
