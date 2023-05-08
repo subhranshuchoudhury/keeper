@@ -1,6 +1,9 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import swal from "sweetalert";
 const Login = () => {
+  const [logging, setlogging] = useState(false);
   const router = useRouter();
   const [Data, setData] = useState({
     email: "",
@@ -9,7 +12,7 @@ const Login = () => {
 
   const authLogin = () => {
     if (Data.email === "" || Data.password === "") {
-      alert("Empty field");
+      swal("Empty credentials!", "", "warning");
       return;
     }
     const dataJson = {
@@ -21,15 +24,23 @@ const Login = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dataJson),
     };
+    setlogging(true);
 
     fetch("https://keeper-backend-eight.vercel.app/auth/login", options)
       .then((response) => response.json())
       .then((response) => {
-        localStorage.setItem("AUTH_DATA", JSON.stringify(response));
-        if (response.accessToken) {
+        if (response?.accessToken) {
+          localStorage.setItem("AUTH_DATA", JSON.stringify(response));
+          swal(
+            "Welcome!",
+            `You are successfully logged as, ${response?.name}.`,
+            "success"
+          );
           router.replace("/notes");
+        } else {
+          swal(response?.message, "Recheck your email and password.", "error");
         }
-        console.log(response);
+        setlogging(false);
       })
       .catch((err) => {
         alert(err);
@@ -40,14 +51,14 @@ const Login = () => {
       <div className="flex h-screen w-full items-center justify-center bg-[#16213E] bg-cover bg-no-repeat">
         <div className="rounded-xl bg-[#0F3460] bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
           <div className="text-white">
-            <div className="mb-8 flex flex-col items-center">
-              <img
-                src="https://www.logo.wine/a/logo/Instagram/Instagram-Glyph-Color-Logo.wine.svg"
-                width="150"
-                alt=""
-                srcSet=""
+            <div className="mb-4 flex flex-col items-center">
+              <Image
+                src="/assets/images/k.png"
+                width={70}
+                height={70}
+                alt="logo"
               />
-              <h1 className="mb-2 text-2xl">Keeper</h1>
+              <h1 className="mt-3 mb-2 text-2xl">Keeper</h1>
               <span className="text-gray-300">Enter Login Details</span>
             </div>
             <form action="#">
@@ -100,6 +111,15 @@ const Login = () => {
           </div>
         </div>
       </div>
+      {logging ? (
+        <div className="absolute top-0 left-0 bg-[#000000ac] w-full h-full blur-1 flex justify-center items-center">
+          <Image
+            src={"/assets/images/loading-dot.gif"}
+            width={80}
+            height={80}
+          />
+        </div>
+      ) : null}
     </>
   );
 };

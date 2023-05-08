@@ -1,11 +1,13 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
-
+import swal from "sweetalert";
 const CreateNote = () => {
   const router = useRouter();
   const titleString = useRef();
   const contentString = useRef();
   const [date, setdate] = useState(null);
+  const [loading, setloading] = useState(false);
   // const [Note, setNote] = useState({
   //   title: "",
   //   content: "",
@@ -16,6 +18,10 @@ const CreateNote = () => {
     }
     if (localStorage.getItem("DRAFT_CONTENT")) {
       contentString.current.value = localStorage.getItem("DRAFT_CONTENT");
+    }
+    if (!localStorage.getItem("AUTH_DATA")) {
+      router.replace("/auth/login");
+      return;
     }
     // for current time and date.
     setdate(new Date());
@@ -35,12 +41,14 @@ const CreateNote = () => {
     if (
       titleString.current.value.length === 0 &&
       contentString.current.value.length === 0
-    )
+    ) {
+      swal("Empty box!", "Title or content cannot be empty.", "warning");
       return;
+    }
+    setloading(true);
     const myPost = {
       title: titleString.current.value,
-      content:contentString.current.value
-
+      content: contentString.current.value,
     };
     const options = {
       method: "POST",
@@ -58,11 +66,15 @@ const CreateNote = () => {
         console.log(response);
         if (response.message === "request saved") {
           eraserButton();
+          swal("Saved!", "Your document has been saved!.", "success");
           router.replace("/notes");
           return;
+        } else {
+          swal("Oops!", "Try again, the document is not saved.", "error");
         }
       })
       .catch((err) => console.error(err));
+    setloading(false);
   };
 
   // back function
@@ -91,8 +103,9 @@ const CreateNote = () => {
                 onClick={backButton}
                 className="bg-white w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
               >
-                <img
+                <Image
                   width={30}
+                  height={30}
                   src="/assets/images/back.png"
                   alt="back button"
                 />
@@ -100,22 +113,45 @@ const CreateNote = () => {
             </div>
             <div>
               <div
-                onClick={eraserButton}
-                className="inline-block mr-3 bg-red-300 w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
+                onClick={() => {
+                  eraserButton();
+                  router.replace("/notes");
+                }}
+                className="inline-block mr-3 w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
               >
-                <img
-                  width={30}
-                  src="/assets/images/eraser.png"
+                <Image
+                  width={41}
+                  height={41}
+                  src="/assets/images/delete.png"
+                  alt="delete button"
+                />
+              </div>
+              <div
+                onClick={() => {
+                  eraserButton();
+                  swal(
+                    "Cleared!",
+                    "All the data fields are cleared.",
+                    "success"
+                  );
+                }}
+                className="inline-block mr-3 w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
+              >
+                <Image
+                  width={41}
+                  height={41}
+                  src="/assets/images/eraser (2).png"
                   alt="eraser button"
                 />
               </div>
               <div
                 onClick={postKeep}
-                className="inline-block bg-green-300 w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
+                className="inline-block w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
               >
-                <img
-                  width={30}
-                  src="/assets/images/tick.png"
+                <Image
+                  width={41}
+                  height={41}
+                  src="/assets/images/save.png"
                   alt="tick button"
                 />
               </div>
@@ -159,6 +195,15 @@ const CreateNote = () => {
             </div>
           </form>
         </div>
+        {loading ? (
+          <div className="absolute top-0 left-0 bg-[#000000ac] w-full h-full blur-1 flex justify-center items-center">
+            <Image
+              src={"/assets/images/loading-dot.gif"}
+              width={80}
+              height={80}
+            />
+          </div>
+        ) : null}
       </div>
     </>
   );

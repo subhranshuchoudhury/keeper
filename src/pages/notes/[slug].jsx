@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import swal from "sweetalert";
 export const getServerSideProps = async (context) => {
   let { slug } = context.query;
 
@@ -44,17 +45,59 @@ const Slug = (props) => {
     //   timestamp: new Date().getTime(),
     // });
   };
+
+  const deleteButton = (reqId) => {
+    setLoading(true);
+    const payload = {
+      reqid: reqId,
+    };
+    const options = {
+      method: "DELETE",
+      headers: {
+        "x-access-token":
+          JSON.parse(localStorage.getItem("AUTH_DATA")).accessToken || "",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    };
+
+    fetch("https://keeper-backend-eight.vercel.app/api/user/keep", options)
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        if (response === "request saved") {
+          swal("Document has been deleted!", "", "info");
+          setLoading(false);
+          router.replace("/notes");
+        } else {
+          swal("Deletion error!", "Kindly try again after sometime", "error");
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+        swal("Error!", "Server or Network error", "error");
+      });
+  };
   // tick function
   const tickButton = () => {
     if (isReadOnly) return;
-    setLoading(true);
 
     const NoteData = {
       title: titleString.current.value,
       content: contentString.current.value,
       keepId: NOTE.keepId,
     };
-    if (NoteData.title.length === 0 && NoteData.content.length === 0) return;
+    if (NoteData.title.length === 0 && NoteData.content.length === 0) {
+      swal(
+        "Empty document!",
+        "Please add some data before saving the changes.",
+        "warning"
+      );
+      return;
+    }
+    setLoading(true);
     const options = {
       method: "PUT",
       headers: {
@@ -78,12 +121,16 @@ const Slug = (props) => {
 
           return;
         } else {
-          console.log(response);
+          // console.log(response);
           // alert("Updated");
+          swal("Document updated!", "", "success");
           setLoading(false);
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        swal("Something went wrong!", "Try again after sometime.", "error");
+      });
   };
   const fetchNote = async () => {
     if (!localStorage.getItem("AUTH_DATA")) {
@@ -140,8 +187,9 @@ const Slug = (props) => {
                     onClick={() => router.back()}
                     className="bg-white w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
                   >
-                    <img
+                    <Image
                       width={30}
+                      height={30}
                       src="/assets/images/back.png"
                       alt="back button"
                     />
@@ -152,20 +200,38 @@ const Slug = (props) => {
                     onClick={() => setisReadOnly(!isReadOnly)}
                     className="inline-block mr-3 bg-white w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
                   >
-                    <img
+                    <Image
                       width={30}
+                      height={30}
                       src="/assets/images/editpencil.png"
-                      alt="eraser button"
+                      alt="edit button"
                     />
                   </div>
                   {!isReadOnly ? (
                     <div
-                      onClick={eraserButton}
-                      className="inline-block mr-3 bg-red-300 w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
+                      onClick={() => {
+                        console.log(NOTE);
+                        deleteButton(NOTE?.keepId);
+                      }}
+                      className="inline-block mr-3 bg-white w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
                     >
-                      <img
+                      <Image
                         width={30}
-                        src="/assets/images/eraser.png"
+                        height={30}
+                        src="/assets/images/delete.png"
+                        alt="delete button"
+                      />
+                    </div>
+                  ) : null}
+                  {!isReadOnly ? (
+                    <div
+                      onClick={eraserButton}
+                      className="inline-block mr-3 bg-white w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
+                    >
+                      <Image
+                        width={30}
+                        height={30}
+                        src="/assets/images/eraser (2).png"
                         alt="eraser button"
                       />
                     </div>
@@ -174,12 +240,13 @@ const Slug = (props) => {
                   {!isReadOnly ? (
                     <div
                       onClick={tickButton}
-                      className="inline-block bg-green-300 w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
+                      className="inline-block bg-white w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
                     >
-                      <img
+                      <Image
                         width={30}
-                        src="/assets/images/tick.png"
-                        alt="tick button"
+                        height={30}
+                        src="/assets/images/save.png"
+                        alt="back button"
                       />
                     </div>
                   ) : null}
