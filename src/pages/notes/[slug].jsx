@@ -197,6 +197,19 @@ const Slug = (props) => {
                 </div>
                 <div>
                   <div
+                    onClick={() => {
+                      // share function
+                    }}
+                    className="inline-block mr-3 bg-white w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
+                  >
+                    <Image
+                      width={30}
+                      height={30}
+                      src="/assets/images/share.png"
+                      alt="share button"
+                    />
+                  </div>
+                  <div
                     onClick={() => setisReadOnly(!isReadOnly)}
                     className="inline-block mr-3 bg-white w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
                   >
