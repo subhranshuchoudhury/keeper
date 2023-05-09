@@ -96,7 +96,7 @@ const CreateNote = () => {
   return (
     <>
       <div className="flex bg-[#16213E] h-screen justify-center items-center">
-        <div className="bg-[#0F3460] p-10 rounded-lg  shadow-2xl">
+        <div className="bg-[#0F3460] p-10 rounded-lg  shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
           <div className="flex justify-between">
             <div>
               <div
@@ -186,10 +186,10 @@ const CreateNote = () => {
               id=""
             />
             <div className="flex justify-between">
-              <p className="mt-5 text-[#9d9fa4]">
-                {new Date().toLocaleDateString()}
+              <p className="mt-5 text-[#9d9fa4] hover:text-white">
+                {new Date().toDateString()}
               </p>
-              <p className="mt-5 text-[#9d9fa4]">
+              <p className="mt-5 text-[#9d9fa4] hover:text-white">
                 {date ? date.toLocaleTimeString().toUpperCase() : "..."}
               </p>
             </div>

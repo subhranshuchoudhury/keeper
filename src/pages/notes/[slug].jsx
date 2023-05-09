@@ -179,7 +179,7 @@ const Slug = (props) => {
     <>
       <div className="flex h-screen justify-center items-center">
         {!Fetching ? (
-          <div className="bg-[#0F3460] p-10 rounded-xl relative  shadow-2xl overflow-hidden">
+          <div className="bg-[#0F3460] p-10 rounded-xl relative shadow-2xl overflow-hidden transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
             <div>
               <div className="flex justify-between">
                 <div>
@@ -225,7 +225,14 @@ const Slug = (props) => {
                   ) : null}
                   {!isReadOnly ? (
                     <div
-                      onClick={eraserButton}
+                      onClick={() => {
+                        eraserButton();
+                        swal(
+                          "Cleared!",
+                          "All the data fields are cleared.",
+                          "success"
+                        );
+                      }}
                       className="inline-block mr-3 bg-white w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
                     >
                       <Image
@@ -281,10 +288,10 @@ const Slug = (props) => {
                   id=""
                 />
                 <div className="flex justify-between">
-                  <p className="mt-5 text-[#9d9fa4]">
+                  <p className="mt-5 text-[#9d9fa4] hover:text-white">
                     {new Date(NOTE?.timestamp)?.toDateString() || ""}
                   </p>
-                  <p className="mt-5 text-[#9d9fa4]">
+                  <p className="mt-5 text-[#9d9fa4] hover:text-white">
                     {new Date(NOTE?.timestamp)
                       .toLocaleTimeString()
                       ?.toUpperCase() || ""}

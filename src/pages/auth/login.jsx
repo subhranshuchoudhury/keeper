@@ -57,6 +57,7 @@ const Login = () => {
                 width={70}
                 height={70}
                 alt="logo"
+                className="rounded-xl"
               />
               <h1 className="mt-3 mb-2 text-2xl">Keeper</h1>
               <span className="text-gray-300">Enter Login Details</span>
@@ -93,7 +94,7 @@ const Login = () => {
                     authLogin();
                   }}
                   type="submit"
-                  className="rounded-3xl bg-[#080b15] bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-yellow-600"
+                  className="rounded-3xl bg-[#080b15] bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-green-400"
                 >
                   Login
                 </button>

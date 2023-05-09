@@ -52,7 +52,7 @@ const Index = () => {
   }, []);
   return (
     <div className="bg-[#16213E] min-h-screen w-screen">
-      <div className="flex justify-center flex-wrap">
+      <div className="m-10 flex justify-center flex-wrap">
         {NOTES.length > 0 ? (
           NOTES.map((item, index) => {
             const time = new Date(item?.timestamp)?.toLocaleTimeString();
