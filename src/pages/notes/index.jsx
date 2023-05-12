@@ -12,7 +12,7 @@ const Index = () => {
       return;
     }
     const OfflineData = localStorage.getItem("NOTES_DATA");
-    if (OfflineData) {
+    if (OfflineData !== "undefined" && OfflineData) {
       setNOTES(JSON.parse(OfflineData));
     }
     const options = {
@@ -26,6 +26,7 @@ const Index = () => {
     fetch("https://keeper-backend-eight.vercel.app/api/user/keeps", options)
       .then((response) => response.json())
       .then((response) => {
+        setLoading(false);
         if (response?.message === "Unauthorized!") {
           // work: check for bug
           localStorage.setItem("NOTES_DATA", null);
@@ -40,8 +41,10 @@ const Index = () => {
         }
         // console.log(response[0].keeps);
       })
-      .catch((err) => console.error(err));
-    setLoading(false);
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   };
   const logout = () => {
     localStorage.clear();
@@ -53,7 +56,7 @@ const Index = () => {
   return (
     <div className="bg-[#16213E] min-h-screen w-screen">
       <div className="m-10 flex justify-center flex-wrap">
-        {NOTES.length > 0 ? (
+        {NOTES?.length > 0 ? (
           NOTES.map((item, index) => {
             const time = new Date(item?.timestamp)?.toLocaleTimeString();
             const date = new Date(item?.timestamp)?.toLocaleDateString();
@@ -83,7 +86,7 @@ const Index = () => {
               );
             }
           })
-        ) : (
+        ) : NOTES?.length == 0 ? (
           <div className="absolute top-0 left-0 bg-[#000000ac] w-full h-full blur-1 flex justify-center items-center">
             <Image
               src={"/assets/images/loading-dot.gif"}
@@ -92,7 +95,7 @@ const Index = () => {
               alt="loading"
             />
           </div>
-        )}
+        ) : null}
       </div>
       {/* bottom buttons */}
       <div className="fixed bottom-0 w-full">

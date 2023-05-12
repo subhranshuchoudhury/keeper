@@ -26,24 +26,10 @@ const Slug = (props) => {
   });
   const [loading, setLoading] = useState(false);
 
-  // const [date, setdate] = useState(null);
-
-  // back function
-  // const backButton = () => {
-  //   router.back();
-  // };
-  // eraser function
   const eraserButton = () => {
-    // alert(titleString.current.value);
-
     if (isReadOnly) return;
     titleString.current.value = "";
     contentString.current.value = "";
-    // setNOTE({
-    //   title: "",
-    //   content: "",
-    //   timestamp: new Date().getTime(),
-    // });
   };
 
   const deleteButton = (reqId) => {
@@ -171,9 +157,62 @@ const Slug = (props) => {
       })
       .catch((err) => console.error(err));
   };
+
+  const shareNote = (item) => {
+    setLoading(true);
+    const payload = {
+      title: item?.title,
+      content: item?.content,
+      timestamp: item?.timestamp,
+      creator: JSON.parse(localStorage.getItem("AUTH_DATA"))?.username || "...",
+    };
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    };
+    fetch("https://keeper-backend-eight.vercel.app/api/share", options)
+      .then((response) => response.json())
+      .then((response) => {
+        setLoading(false);
+        const origin =
+          typeof window !== "undefined" && window.location.origin
+            ? window.location.origin
+            : "";
+        if (response.status === "success") {
+          navigator.clipboard
+            .writeText(`${origin}/share/${response.data._id}`)
+            .then(
+              function () {
+                swal(
+                  "Link copied to clipboard!",
+                  `${origin}/share/${response.data._id}`,
+                  "success"
+                );
+              },
+              function (err) {
+                swal(
+                  "Copy and share the link!",
+                  `${origin}/share/${response.data._id}`,
+                  "success"
+                );
+              }
+            );
+        }
+        
+      })
+      .catch((err) => {
+        setLoading(false);
+        swal(
+          "Error occurred!",
+          "Something went wrong, while generating link.",
+          "error"
+        );
+      });
+  };
   useEffect(() => {
     fetchNote();
-    // for current time and date.
+    console.log(router);
   }, []);
   return (
     <>
@@ -198,7 +237,7 @@ const Slug = (props) => {
                 <div>
                   <div
                     onClick={() => {
-                      // share function
+                      shareNote(NOTE);
                     }}
                     className="inline-block mr-3 bg-white w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
                   >
@@ -223,7 +262,6 @@ const Slug = (props) => {
                   {!isReadOnly ? (
                     <div
                       onClick={() => {
-                        console.log(NOTE);
                         deleteButton(NOTE?.keepId);
                       }}
                       className="inline-block mr-3 bg-white w-fit p-2 rounded-full mb-5 cursor-pointer hover:scale-125"
@@ -318,6 +356,7 @@ const Slug = (props) => {
                   src={"/assets/images/loading-dot.gif"}
                   width={80}
                   height={80}
+                  alt="loading"
                 />
               </div>
             ) : (
@@ -330,6 +369,7 @@ const Slug = (props) => {
               src={"/assets/images/loading-dot.gif"}
               width={80}
               height={80}
+              alt="loading"
             />
           </div>
         )}

@@ -43,7 +43,11 @@ const Login = () => {
         setlogging(false);
       })
       .catch((err) => {
-        alert(err);
+        swal(
+          "Something went wrong!",
+          `Kindly retry after sometime.`,
+          "error"
+        );
       });
   };
   return (

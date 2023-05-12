@@ -5,37 +5,35 @@ const Home = () => {
   const router = useRouter();
 
   useEffect(() => {
-    return async () => {
-      if (localStorage.getItem("AUTH_DATA")) {
-        const Data = await JSON.parse(localStorage.getItem("AUTH_DATA"));
-        if (Data.accessToken !== null) {
-          const options = {
-            method: "GET",
-            headers: {
-              "x-access-token": Data.accessToken.toString(),
-            },
-          };
+    if (
+      localStorage.getItem("AUTH_DATA") &&
+      localStorage.getItem("AUTH_DATA") !== undefined
+    ) {
+      const Data = JSON.parse(localStorage.getItem("AUTH_DATA"));
+      if (Data.accessToken !== null) {
+        const options = {
+          method: "GET",
+          headers: {
+            "x-access-token": Data.accessToken.toString(),
+          },
+        };
 
-          await fetch(
-            "https://keeper-backend-eight.vercel.app/api/verify",
-            options
-          )
-            .then((response) => response.json())
-            .then((response) => {
-              if (response?.success) {
-                router.replace("/notes");
-              } else {
-                router.replace("/auth/login");
-              }
-            })
-            .catch((err) => console.log(err));
-        } else {
-          router.replace("/auth/login");
-        }
+        fetch("https://keeper-backend-eight.vercel.app/api/verify", options)
+          .then((response) => response.json())
+          .then((response) => {
+            if (response?.success) {
+              router.replace("/notes");
+            } else {
+              router.replace("/auth/login");
+            }
+          })
+          .catch((err) => console.log(err));
       } else {
-        router.replace("/auth/register");
+        router.replace("/auth/login");
       }
-    };
+    } else {
+      router.replace("/auth/register");
+    }
   }, []);
 
   return (
