@@ -44,10 +44,11 @@ const Login = () => {
       })
       .catch((err) => {
         swal(
-          "Something went wrong!",
-          `Kindly retry after sometime.`,
+          "Network or server error!",
+          `kindly retry after sometime.`,
           "error"
         );
+        setlogging(false);
       });
   };
   return (
@@ -98,7 +99,7 @@ const Login = () => {
                     authLogin();
                   }}
                   type="submit"
-                  className="rounded-3xl bg-[#080b15] bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-green-400"
+                  className="rounded-3xl bg-[#080b15] bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-green-400 hover:animate-pulse"
                 >
                   Login
                 </button>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import swal from "sweetalert";
 const Index = () => {
   const [NOTES, setNOTES] = useState([]);
   const [Loading, setLoading] = useState(true);
@@ -44,6 +45,7 @@ const Index = () => {
       .catch((err) => {
         console.error(err);
         setLoading(false);
+        swal("Network or server error!", "try again after sometime", "error");
       });
   };
   const logout = () => {
@@ -64,12 +66,12 @@ const Index = () => {
             if (item) {
               return (
                 <div key={index}>
-                  <button className="group relative block m-5 rounded w-[200px] h-[250px] hover:cursor-pointer hover:bg-[#6de8b7]">
+                  <button className="group relative block m-5 rounded w-[200px] h-[250px] hover:cursor-pointer hover:bg-[#6de8b7] hover:animate-pulse">
                     <span
                       onClick={() => {
                         router.push(`/notes/${item?._id}`);
                       }}
-                      className="transition ease-in-out delay-75 bg-blue-500 hover:-translate-y-1 duration-200 text-white absolute w-full h-full top-0 left-0 flex justify-center flex-col items-center group-hover:top-5 group-hover:-left-5 rounded-lg"
+                      className="transition ease-in-out delay-75 bg-blue-500 hover:-translate-y-1 duration-200 text-white absolute w-full h-full top-0 left-0 flex justify-center flex-col items-center group-hover:top-5 group-hover:-left-5 rounded-lg shadow-2xl"
                     >
                       <span className="block font-bold">{item?.title}</span>
                       <span className="block">
@@ -99,7 +101,10 @@ const Index = () => {
       </div>
       {/* bottom buttons */}
       <div className="fixed bottom-0 w-full">
-        <button onClick={logout} className="my-8  m-2 px-5 py-2">
+        <button
+          onClick={logout}
+          className="my-8  m-2 px-5 py-2 hover:animate-ping"
+        >
           <Image
             src={"/assets/images/logout.png"}
             width={70}
@@ -122,7 +127,7 @@ const Index = () => {
           onClick={() => {
             router.push("notes/create-note");
           }}
-          className="bottom-0 m-2 my-8 float-right px-5 py-2"
+          className="bottom-0 m-2 my-8 float-right px-5 py-2 hover:animate-bounce"
         >
           <Image
             src={"/assets/images/plus.png"}

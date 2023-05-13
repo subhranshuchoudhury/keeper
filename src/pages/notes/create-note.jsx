@@ -13,6 +13,22 @@ const CreateNote = () => {
   //   content: "",
   // });
   useEffect(() => {
+    // const { getItem } = localStorage;
+    // const draftTitle = getItem("DRAFT_TITLE");
+    // const draftContent = getItem("DRAFT_CONTENT");
+    // const authData = getItem("AUTH_DATA");
+
+    // titleString.current.value = draftTitle
+    //   ? draftTitle
+    //   : titleString.current.value;
+    // contentString.current.value = draftContent
+    //   ? draftContent
+    //   : contentString.current.value;
+
+    // if (!authData) {
+    //   router.replace("/auth/login");
+    //   return;
+    // }
     if (localStorage.getItem("DRAFT_TITLE")) {
       titleString.current.value = localStorage.getItem("DRAFT_TITLE");
     }
@@ -42,7 +58,7 @@ const CreateNote = () => {
       titleString.current.value.length === 0 &&
       contentString.current.value.length === 0
     ) {
-      swal("Empty box!", "Title or content cannot be empty.", "warning");
+      swal("Empty box!", "Title or content cannot be empty.", "info");
       return;
     }
     setloading(true);

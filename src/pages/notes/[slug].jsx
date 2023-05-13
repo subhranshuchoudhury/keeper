@@ -116,6 +116,7 @@ const Slug = (props) => {
       .catch((err) => {
         console.error(err);
         swal("Something went wrong!", "Try again after sometime.", "error");
+        setLoading(false);
       });
   };
   const fetchNote = async () => {
@@ -155,7 +156,9 @@ const Slug = (props) => {
           // console.log(NOTE);
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        router.push("/notes")
+      });
   };
 
   const shareNote = (item) => {
@@ -199,7 +202,6 @@ const Slug = (props) => {
               }
             );
         }
-        
       })
       .catch((err) => {
         setLoading(false);
@@ -212,7 +214,6 @@ const Slug = (props) => {
   };
   useEffect(() => {
     fetchNote();
-    console.log(router);
   }, []);
   return (
     <>

@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Image from "next/image";
+import swal from "sweetalert";
 const Home = () => {
   const router = useRouter();
 
@@ -27,7 +28,10 @@ const Home = () => {
               router.replace("/auth/login");
             }
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.log(err);
+            swal("Network or server error!","try again after sometime.","error")
+          });
       } else {
         router.replace("/auth/login");
       }
@@ -44,8 +48,8 @@ const Home = () => {
           <Image
             src="/assets/images/loading-dot.gif"
             alt="loading"
-            width="100"
-            height="100"
+            width={100}
+            height={100}
           ></Image>
         </div>
       </div>
