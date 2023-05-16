@@ -58,7 +58,7 @@ const Login = () => {
           <div className="text-white">
             <div className="mb-4 flex flex-col items-center">
               <Image
-                src="/assets/images/keeper (1).png"
+                src="/assets/images/k.png"
                 width={70}
                 height={70}
                 alt="logo"

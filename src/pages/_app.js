@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }) {
       <Image
         onClick={() => router.push("/")}
         className="fixed m-5 hover:cursor-pointer transition ease-in-out delay-150 hover:rotate-12 hover:scale-110 rounded-xl"
-        src={"/assets/images/keeper (1).png"}
+        src={"/assets/images/k.png"}
         width={100}
         height={100}
         alt="logo"
