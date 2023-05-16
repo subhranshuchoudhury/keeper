@@ -26,7 +26,7 @@ const Login = () => {
     };
     setlogging(true);
 
-    fetch("https://keeper-backend-eight.vercel.app/auth/login", options)
+    fetch("https://keeper-backend-theta.vercel.app/auth/login", options)
       .then((response) => response.json())
       .then((response) => {
         if (response?.accessToken) {

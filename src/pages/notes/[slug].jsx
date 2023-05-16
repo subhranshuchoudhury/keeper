@@ -47,7 +47,7 @@ const Slug = (props) => {
       body: JSON.stringify(payload),
     };
 
-    fetch("https://keeper-backend-eight.vercel.app/api/user/keep", options)
+    fetch("https://keeper-backend-theta.vercel.app/api/user/keep", options)
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
@@ -94,7 +94,7 @@ const Slug = (props) => {
       body: JSON.stringify(NoteData),
     };
 
-    fetch("https://keeper-backend-eight.vercel.app/api/user/keep", options)
+    fetch("https://keeper-backend-theta.vercel.app/api/user/keep", options)
       .then((response) => response.json())
       .then((response) => {
         setLoading(true);
@@ -134,7 +134,7 @@ const Slug = (props) => {
     };
 
     fetch(
-      `https://keeper-backend-eight.vercel.app/api/user/keep/${slug}`,
+      `https://keeper-backend-theta.vercel.app/api/user/keep/${slug}`,
       options
     )
       .then((response) => response.json())
@@ -157,7 +157,7 @@ const Slug = (props) => {
         }
       })
       .catch((err) => {
-        router.push("/notes")
+        router.push("/notes");
       });
   };
 
@@ -174,7 +174,7 @@ const Slug = (props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     };
-    fetch("https://keeper-backend-eight.vercel.app/api/share", options)
+    fetch("https://keeper-backend-theta.vercel.app/api/share", options)
       .then((response) => response.json())
       .then((response) => {
         setLoading(false);

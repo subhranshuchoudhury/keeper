@@ -76,7 +76,7 @@ const CreateNote = () => {
       body: JSON.stringify(myPost),
     };
 
-    fetch("https://keeper-backend-eight.vercel.app/api/user/keep", options)
+    fetch("https://keeper-backend-theta.vercel.app/api/user/keep", options)
       .then((response) => response.json())
       .then((response) => {
         console.log(response);

@@ -37,7 +37,7 @@ const Register = () => {
       body: JSON.stringify(payLoad),
     };
 
-    fetch("https://keeper-backend-eight.vercel.app/auth/register", options)
+    fetch("https://keeper-backend-theta.vercel.app/auth/register", options)
       .then((response) => response.json())
       .then((response) => {
         setLoading(false);
@@ -54,7 +54,7 @@ const Register = () => {
       .catch((err) => {
         console.error(err);
         setLoading(false);
-        swal("Network or server error!","try again after sometime.","error")
+        swal("Network or server error!", "try again after sometime.", "error");
       });
   };
   return (

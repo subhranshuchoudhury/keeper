@@ -26,7 +26,7 @@ const Slug = (props) => {
     const options = { method: "GET" };
 
     fetch(
-      `https://keeper-backend-eight.vercel.app/api/share/${props.slug}`,
+      `https://keeper-backend-theta.vercel.app/api/share/${props.slug}`,
       options
     )
       .then((response) => response.json())

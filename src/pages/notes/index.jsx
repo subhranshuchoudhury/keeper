@@ -24,7 +24,7 @@ const Index = () => {
       },
     };
 
-    fetch("https://keeper-backend-eight.vercel.app/api/user/keeps", options)
+    fetch("https://keeper-backend-theta.vercel.app/api/user/keeps", options)
       .then((response) => response.json())
       .then((response) => {
         setLoading(false);

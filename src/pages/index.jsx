@@ -19,23 +19,30 @@ const Home = () => {
           },
         };
 
-        fetch("https://keeper-backend-eight.vercel.app/api/verify", options)
+        fetch("https://keeper-backend-theta.vercel.app/api/verify", options)
           .then((response) => response.json())
           .then((response) => {
             if (response?.success) {
               router.replace("/notes");
             } else {
               router.replace("/auth/login");
+              localStorage.clear();
             }
           })
           .catch((err) => {
             console.log(err);
-            swal("Network or server error!","try again after sometime.","error")
+            swal(
+              "Network or server error!",
+              "try again after sometime.",
+              "error"
+            );
           });
       } else {
         router.replace("/auth/login");
+        localStorage.clear();
       }
     } else {
+      localStorage.clear();
       router.replace("/auth/register");
     }
   }, []);
