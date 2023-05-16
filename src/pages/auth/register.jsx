@@ -64,7 +64,7 @@ const Register = () => {
           <div className="text-white">
             <div className="mb-8 flex flex-col items-center">
               <Image
-                src="/assets/images/k.png"
+                src="/assets/images/keeper (1).png"
                 width={70}
                 height={70}
                 alt="logo"

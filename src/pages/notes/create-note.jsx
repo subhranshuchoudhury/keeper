@@ -84,6 +84,7 @@ const CreateNote = () => {
           eraserButton();
           swal("Saved!", "Your document has been saved!.", "success");
           router.replace("/notes");
+
           return;
         } else {
           swal("Oops!", "Try again, the document is not saved.", "error");

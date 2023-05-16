@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 const Index = () => {
-  const [NOTES, setNOTES] = useState([]);
+  const [NOTES, setNOTES] = useState(null);
   const [Loading, setLoading] = useState(true);
   const router = useRouter();
   const fetchNotes = () => {
@@ -13,9 +13,7 @@ const Index = () => {
       return;
     }
     const OfflineData = localStorage.getItem("NOTES_DATA");
-    if (OfflineData !== "undefined" && OfflineData) {
-      setNOTES(JSON.parse(OfflineData));
-    }
+
     const options = {
       method: "GET",
       headers: {
@@ -30,7 +28,7 @@ const Index = () => {
         setLoading(false);
         if (response?.message === "Unauthorized!") {
           // work: check for bug
-          localStorage.setItem("NOTES_DATA", null);
+          localStorage.clear();
           router.replace("/auth/login");
           return;
         } else {
@@ -45,6 +43,9 @@ const Index = () => {
       .catch((err) => {
         console.error(err);
         setLoading(false);
+        if (OfflineData !== "undefined" && OfflineData) {
+          setNOTES(JSON.parse(OfflineData));
+        }
         swal("Network or server error!", "try again after sometime", "error");
       });
   };
