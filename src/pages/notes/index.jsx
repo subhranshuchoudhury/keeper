@@ -104,12 +104,13 @@ const Index = () => {
       <div className="fixed bottom-0 w-full">
         <button
           onClick={logout}
-          className="my-8  m-2 px-5 py-2 hover:animate-ping"
+          className="my-8  m-2 px-5 py-2 hover:animate-pulse"
         >
           <Image
             src={"/assets/images/logout.png"}
             width={70}
             height={70}
+            title="LOGOUT"
             alt="logout"
           ></Image>
         </button>
@@ -128,12 +129,13 @@ const Index = () => {
           onClick={() => {
             router.push("notes/create-note");
           }}
-          className="bottom-0 m-2 my-8 float-right px-5 py-2 hover:animate-bounce"
+          className="bottom-0 m-2 my-8 float-right px-5 py-2 hover:animate-spin"
         >
           <Image
             src={"/assets/images/plus.png"}
             alt="create note"
             width={70}
+            title="Add new note"
             height={70}
           ></Image>
         </button>

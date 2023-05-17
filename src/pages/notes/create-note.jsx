@@ -125,6 +125,7 @@ const CreateNote = () => {
                   height={30}
                   src="/assets/images/back.png"
                   alt="back button"
+                  title="Click to go back"
                 />
               </div>
             </div>
@@ -139,8 +140,10 @@ const CreateNote = () => {
                 <Image
                   width={41}
                   height={41}
+                  title="Click to delete."
                   src="/assets/images/delete.png"
                   alt="delete button"
+
                 />
               </div>
               <div
@@ -159,6 +162,7 @@ const CreateNote = () => {
                   height={41}
                   src="/assets/images/eraser (2).png"
                   alt="eraser button"
+                  title="Click to erase"
                 />
               </div>
               <div
@@ -169,7 +173,8 @@ const CreateNote = () => {
                   width={41}
                   height={41}
                   src="/assets/images/save.png"
-                  alt="tick button"
+                  alt="Save button"
+                  title="Click to save"
                 />
               </div>
             </div>
@@ -203,10 +208,10 @@ const CreateNote = () => {
               id=""
             />
             <div className="flex justify-between">
-              <p className="mt-5 text-[#9d9fa4] hover:text-white">
+              <p className="mt-5 text-[#9d9fa4] hover:text-white hover:scale-110">
                 {new Date().toDateString()}
               </p>
-              <p className="mt-5 text-[#9d9fa4] hover:text-white">
+              <p className="mt-5 text-[#9d9fa4] hover:text-white hover:scale-110">
                 {date ? date.toLocaleTimeString().toUpperCase() : "..."}
               </p>
             </div>
