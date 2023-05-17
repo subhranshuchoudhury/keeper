@@ -232,6 +232,7 @@ const Slug = (props) => {
                       height={30}
                       src="/assets/images/back.png"
                       alt="back button"
+                      title="Click to go back"
                     />
                   </div>
                 </div>
@@ -247,6 +248,7 @@ const Slug = (props) => {
                       height={30}
                       src="/assets/images/share.png"
                       alt="share button"
+                      title="Share"
                     />
                   </div>
                   <div
@@ -258,6 +260,7 @@ const Slug = (props) => {
                       height={30}
                       src="/assets/images/editpencil.png"
                       alt="edit button"
+                      title="Edit"
                     />
                   </div>
                   {!isReadOnly ? (
@@ -272,6 +275,7 @@ const Slug = (props) => {
                         height={30}
                         src="/assets/images/delete.png"
                         alt="delete button"
+                        title="Delete"
                       />
                     </div>
                   ) : null}
@@ -292,6 +296,7 @@ const Slug = (props) => {
                         height={30}
                         src="/assets/images/eraser (2).png"
                         alt="eraser button"
+                        title="Erase"
                       />
                     </div>
                   ) : null}
@@ -305,7 +310,8 @@ const Slug = (props) => {
                         width={30}
                         height={30}
                         src="/assets/images/save.png"
-                        alt="back button"
+                        alt=" save button"
+                        title="Save"
                       />
                     </div>
                   ) : null}
@@ -340,10 +346,10 @@ const Slug = (props) => {
                   id=""
                 />
                 <div className="flex justify-between">
-                  <p className="mt-5 text-[#9d9fa4] hover:text-white">
+                  <p className="mt-5 text-[#9d9fa4] hover:text-white hover:scale-110">
                     {new Date(NOTE?.timestamp)?.toDateString() || ""}
                   </p>
-                  <p className="mt-5 text-[#9d9fa4] hover:text-white">
+                  <p className="mt-5 text-[#9d9fa4] hover:text-white hover:scale-110">
                     {new Date(NOTE?.timestamp)
                       .toLocaleTimeString()
                       ?.toUpperCase() || ""}
