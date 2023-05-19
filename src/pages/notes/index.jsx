@@ -114,6 +114,18 @@ const Index = () => {
             alt="logout"
           ></Image>
         </button>
+        <button
+          onClick={()=>router.push("/about")}
+          className="my-8  m-2 px-5 py-2 hover:animate-pulse"
+        >
+          <Image
+            src={"/assets/images/talk.png"}
+            width={70}
+            height={70}
+            title="LOGOUT"
+            alt="about us"
+          ></Image>
+        </button>
         {Loading ? (
           <div className="my-8  m-2 px-5 py-2">
             <Image
