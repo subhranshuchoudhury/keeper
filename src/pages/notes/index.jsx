@@ -58,7 +58,7 @@ const Index = () => {
   }, []);
   return (
     <div className="bg-[#16213E] min-h-screen w-screen">
-      <div className="m-10 flex justify-center flex-wrap">
+      <div className="m-10 flex justify-center flex-wrap mt-24">
         {NOTES?.length > 0 ? (
           NOTES.map((item, index) => {
             const time = new Date(item?.timestamp)?.toLocaleTimeString();
@@ -104,25 +104,25 @@ const Index = () => {
       <div className="fixed bottom-0 w-full">
         <button
           onClick={logout}
-          className="my-8  m-2 px-5 py-2 hover:animate-pulse"
+          className="my-8 px-5 py-2 hover:animate-pulse"
         >
           <Image
             src={"/assets/images/logout.png"}
-            width={70}
-            height={70}
-            title="LOGOUT"
+            width={50}
+            height={50}
+            title="Logout"
             alt="logout"
           ></Image>
         </button>
         <button
           onClick={()=>router.push("/about")}
-          className="my-8  m-2 px-5 py-2 hover:animate-pulse"
+          className="my-8 py-2hover:animate-pulse"
         >
           <Image
             src={"/assets/images/talk.png"}
-            width={70}
-            height={70}
-            title="LOGOUT"
+            width={50}
+            height={50}
+            title="About me"
             alt="about us"
           ></Image>
         </button>
@@ -146,9 +146,9 @@ const Index = () => {
           <Image
             src={"/assets/images/plus.png"}
             alt="create note"
-            width={70}
+            width={50}
             title="Add new note"
-            height={70}
+            height={50}
           ></Image>
         </button>
       </div>
