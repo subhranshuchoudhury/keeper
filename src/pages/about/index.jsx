@@ -7,10 +7,7 @@ const Index = () => {
   const router = useRouter();
   return (
     <>
-      <ReactAudioPlayer
-        src="/assets/audios/METAMORPHOSIS.mp3"
-        autoPlay
-      />
+      <ReactAudioPlayer src="/assets/audios/METAMORPHOSIS.mp3" autoPlay loop />
       <div className="flex h-screen w-full items-center justify-center bg-[#16213E] bg-cover bg-no-repeat">
         <div className="rounded-xl bg-[#0F3460] bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8 hover:bg-cyan-600">
           <div className="text-white">
